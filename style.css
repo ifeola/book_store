@@ -112,13 +112,11 @@ label {
 	padding-block: 2rem;
 
 	.book__image {
-		inline-size: 8rem;
-		block-size: 12rem;
+		aspect-ratio: 9/14;
 		object-fit: cover;
 	}
 
 	.book__image img {
-		display: block;
 		width: 100%;
 		height: 100%;
 	}
@@ -270,9 +268,5 @@ label {
 	.book {
 		grid-template-columns: 1fr;
 		gap: 0.5rem;
-	}
-
-	.loading__image {
-		inline-size: 100%;
 	}
 }

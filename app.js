@@ -61,7 +61,7 @@ function renderBooks(books) {
 		const authors = book.authors.map((author) => author.name); // Format authors
 
 		bookItem.innerHTML = `
-				<div class="loading__image">
+				<div class="book__image">
 					<img src="${imageUrl}" alt="${book.title}" loading="lazy" />
 				</div>
 				<div class="book__details">
