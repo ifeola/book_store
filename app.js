@@ -62,7 +62,7 @@ function renderBooks(books) {
 
 		bookItem.innerHTML = `
 				<div class="loading__image">
-					<img src="${imageUrl}" alt="${book.title}" />
+					<img src="${imageUrl}" alt="${book.title}" loading="lazy" />
 				</div>
 				<div class="book__details">
 					<div class="book__info">
