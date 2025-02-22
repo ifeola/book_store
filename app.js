@@ -17,7 +17,32 @@ async function fetchBooks() {
 }
 
 function renderLoading() {
-	bookList.innerHTML = "<h1>Loading...</h1>";
+	// Create 8 loading placeholders
+	for (let i = 0; i < 8; i++) {
+		const bookItem = document.createElement("li");
+		bookItem.classList.add("loading");
+		bookItem.innerHTML = `
+					<div class="loading__image">
+							<div class="image"></div>
+					</div>
+					<div class="loading__details">
+							<div class="loading__info">
+									<div class="loading__title"></div>
+									<div class="loading__author"></div>
+									<div class="loading__summary">
+											<div class="summary"></div>
+											<div class="summary"></div>
+											<div class="summary"></div>
+									</div>
+							</div>
+							<div class="loading__actions">
+									<div class="loading__downloads"></div>
+									<div class="loading__btn"></div>
+							</div>
+					</div>
+			`;
+		bookList.appendChild(bookItem); // Append each bookItem to the bookList
+	}
 }
 
 function renderBooks(books) {
@@ -36,10 +61,8 @@ function renderBooks(books) {
 		const authors = book.authors.map((author) => author.name); // Format authors
 
 		bookItem.innerHTML = `
-				<div class="book__image">
-					<img
-						src=${imageUrl}
-						alt="book" />
+				<div class="loading__image">
+					<img src="${imageUrl}" alt="${book.title}" />
 				</div>
 				<div class="book__details">
 					<div class="book__info">

@@ -12,6 +12,7 @@
 	--tertiary-color: #f4f4f4;
 	--dark-color: #333;
 	--light-color: #fff;
+	--loading: rgba(255, 255, 255, 0.16);
 }
 
 body {
@@ -49,6 +50,7 @@ body {
 	width: 100%;
 	padding-inline: 1rem;
 	justify-content: space-between;
+	gap: 1rem;
 }
 
 .logo {
@@ -75,6 +77,7 @@ label {
 		color: var(--tertiary-color);
 		font-size: 1rem;
 		font: inherit;
+		inline-size: 100%;
 	}
 }
 
@@ -164,4 +167,112 @@ label {
 
 .book:not(:first-child) {
 	border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.loading {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 2rem;
+	padding-block: 2rem;
+	opacity: 0.2;
+	animation: pulse ease-in 0.3s linear infinite;
+
+	.loading__image {
+		inline-size: 8rem;
+		block-size: 12rem;
+		background-color: rgba(255, 255, 255, 0.16);
+		border: 1px solid rgba(255, 255, 255, 0.24);
+		border-radius: 8px;
+	}
+
+	.loading__title,
+	.loading__author,
+	.loading__summary .summary,
+	.loading__downloads,
+	.loading__btn {
+		block-size: 1rem;
+		background-color: var(--loading);
+		border-radius: 8px;
+	}
+
+	.loading__title {
+		inline-size: 60%;
+		max-inline-size: 16rem;
+	}
+
+	.loading__author {
+		max-inline-size: 8rem;
+		margin-block-start: 0.5rem;
+	}
+
+	.loading__summary {
+		margin-block: 1.5rem;
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.loading__actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.loading__downloads {
+		inline-size: 100%;
+		max-inline-size: 8rem;
+	}
+
+	.loading__btn {
+		inline-size: 100%;
+		max-inline-size: 5rem;
+	}
+}
+
+.loading {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 2rem;
+	padding-block: 2rem;
+	opacity: 0.2;
+	-webkit-animation: pulse 1s ease-in-out infinite;
+	animation: pulse 2s ease-in-out infinite;
+}
+
+.loading:not(:first-child) {
+	border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@-webkit-keyframes pulse {
+	0%,
+	100% {
+		opacity: 0.2;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes pulse {
+	50% {
+		opacity: 1;
+	}
+}
+
+@media (width < 420px) {
+	.loading {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+
+	.book {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+
+	.loading__image {
+		inline-size: 100%;
+	}
 }
