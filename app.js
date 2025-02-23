@@ -16,6 +16,8 @@ async function fetchBooks() {
 	}
 }
 
+function findBook() {}
+
 function renderLoading() {
 	// Create 8 loading placeholders
 	for (let i = 0; i < 8; i++) {
