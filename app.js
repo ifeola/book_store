@@ -1,4 +1,6 @@
 const bookList = document.querySelector("#book__list");
+const search = document.querySelector("#search");
+let books = [];
 
 async function fetchBooks() {
 	try {
@@ -16,7 +18,18 @@ async function fetchBooks() {
 	}
 }
 
-function findBook() {}
+function findBook() {
+	// Filter books based on the search input
+	searchInput = search.value;
+	const filteredBooks = books.filter(
+		(book) =>
+			book.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+			book.authors[0].name.toLowerCase().includes(searchInput.toLowerCase())
+	);
+	renderBooks(filteredBooks);
+}
+
+search.addEventListener("keyup", findBook);
 
 function renderLoading() {
 	// Create 8 loading placeholders
@@ -89,7 +102,7 @@ function renderBooks(books) {
 
 async function init() {
 	renderLoading(); // Show loading state
-	const books = await fetchBooks(); // Fetch books
+	books = await fetchBooks(); // Fetch books
 	renderBooks(books); // Render books
 }
 

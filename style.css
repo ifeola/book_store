@@ -181,8 +181,8 @@ label {
 	animation: pulse ease-in 0.3s linear infinite;
 
 	.loading__image {
-		inline-size: 8rem;
-		block-size: 12rem;
+		inline-size: 10rem;
+		block-size: 14rem;
 		background-color: rgba(255, 255, 255, 0.16);
 		border: 1px solid rgba(255, 255, 255, 0.24);
 		border-radius: 8px;
@@ -241,11 +241,6 @@ label {
 	opacity: 0.2;
 	-webkit-animation: pulse 1s ease-in-out infinite;
 	animation: pulse 2s ease-in-out infinite;
-
-	.loading__image {
-		inline-size: 100%;
-		block-size: 20rem;
-	}
 }
 
 .loading:not(:first-child) {
@@ -272,6 +267,11 @@ label {
 	.loading {
 		grid-template-columns: 1fr;
 		gap: 0.5rem;
+
+		.loading__image {
+			inline-size: 100%;
+			block-size: 20rem;
+		}
 	}
 
 	.book {
