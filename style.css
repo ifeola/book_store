@@ -165,6 +165,18 @@ label {
 		cursor: pointer;
 		font-size: 0.875rem;
 	}
+
+	.book__cta {
+		border: none;
+		outline: none;
+		background-color: var(--primary-color);
+		color: var(--dark-color);
+		padding: 0.5rem 1.5rem;
+		border-radius: 5rem;
+		cursor: pointer;
+		font-size: 0.875rem;
+		font-weight: 700;
+	}
 }
 
 .book:not(:first-child) {
@@ -280,6 +292,17 @@ label {
 
 		.book__title {
 			font-size: 1.125rem;
+		}
+	}
+
+	.book__actions {
+		flex-direction: column;
+		gap: 0.5rem;
+		align-items: flex-start;
+
+		.book__cta {
+			inline-size: 100%;
+			padding-block: 0.875rem;
 		}
 	}
 }

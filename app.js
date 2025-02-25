@@ -1,6 +1,54 @@
 const bookList = document.querySelector("#book__list");
 const search = document.querySelector("#search");
+const book = document.querySelector(".book__details");
+
 let books = [];
+
+bookList.addEventListener("click", async (event) => {
+	const bookItem = event.target.closest(".book");
+	if (!bookItem) return;
+
+	const bookId = bookItem.id;
+	const book = await fetchBook(bookId);
+
+	const bookDetails = getBookDetails(book);
+	bookItem.appendChild(bookDetails);
+	bookItem.classList.toggle("active");
+});
+
+function getBookDetails(book) {
+	const bookDetails = document.createElement("div");
+	bookDetails.className = "book__details";
+	bookDetails.innerHTML = `
+		<div class="book__info">
+			<h4 class="book__title">${book.title}</h4>
+			<p class="book__author">By <span>${book.authors[0].name}</span></p>
+			<p class="book__summary">${book.summaries[0]}</p>
+		</div>
+		<div class="book__actions">
+			<span class="book__downloads">
+				${book.download_count === 1 ? "Downloaded" : "Downloads"}:
+				${book.download_count === 0 ? "No" : book.download_count}
+			</span>
+			<button class="book__cta">About this book</button>
+		</div>
+	`;
+	return bookDetails;
+}
+
+async function fetchBook(id) {
+	try {
+		const response = await fetch(`https://gutendex.com/books/${id}`);
+		if (!response.ok) {
+			throw new Error("Failed to fetch book");
+		}
+		const result = await response.json();
+		return result;
+	} catch (error) {
+		console.error("Error fetching book:", error);
+		return null;
+	}
+}
 
 async function fetchBooks() {
 	try {
@@ -70,6 +118,7 @@ function renderBooks(books) {
 
 	books.forEach((book) => {
 		const bookItem = document.createElement("li");
+		bookItem.id = book.id;
 		bookItem.className = "book";
 		const imageUrl =
 			book.formats["image/jpeg"] || "https://via.placeholder.com/150"; // Fallback image
@@ -90,9 +139,7 @@ function renderBooks(books) {
 							${book.download_count === 1 ? "Downloaded" : "Downloads"}:
 							${book.download_count === 0 ? "No" : book.download_count}
 						</span>
-						<a href="${book.formats["text/html"]}" class="book__link
-							">Read
-						</a>
+						<a href="/books/book.html" class="book__cta" target="_blank">Read more</a>
 					</div>
 				</div>
     `;
