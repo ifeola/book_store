@@ -85,7 +85,8 @@ label {
 	padding-block: 5.6rem;
 }
 
-.booklist__wrapper {
+.booklist__wrapper,
+.book__wrapper {
 	max-inline-size: 920px;
 	width: 100%;
 	padding-inline: 1rem;
@@ -305,4 +306,7 @@ label {
 			padding-block: 0.875rem;
 		}
 	}
+}
+
+.book-details {
 }

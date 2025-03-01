@@ -1,74 +1,10 @@
 const bookList = document.querySelector("#book__list");
 const search = document.querySelector("#search");
-const bookContent = document.querySelector(".book__details");
+const bookContent = document.querySelector("#book-details");
 
 let books = [];
 
-// GET BOOK DETAILS
-
-function getBookIdFromUrl() {
-	const urlParams = new URLSearchParams(window.location.search);
-	return urlParams.get("id");
-}
-
-bookList.addEventListener("click", async (event) => {
-	event.preventDefault();
-	const bookBtn = event.target.classList.contains("book__cta")
-		? event.target
-		: event.target.closest
-		? event.target.closest(".book__cta")
-		: null;
-	console.log(bookBtn);
-
-	if (!bookBtn) return;
-
-	let parentEl = bookBtn.closest(".book");
-	const bookId = parentEl.id;
-	const book = await fetchBook(bookId);
-
-	const bookDetails = getBookDetails(book);
-	bookContent.appendChild(bookDetails);
-
-	// Now update the href dynamically
-	bookBtn.href = `/books/book.html?id=${bookId}`;
-});
-
-function getBookDetails(book) {
-	const bookDetails = document.createElement("div");
-	bookDetails.className = "book__details";
-	bookDetails.innerHTML = `
-		<div class="book__info">
-			<h4 class="book__title">${book.title}</h4>
-			<p class="book__author">By <span>${book.authors[0].name}</span></p>
-			<p class="book__summary">${book.summaries[0]}</p>
-		</div>
-		<div class="book__actions">
-			<span class="book__downloads">
-				${book.download_count === 1 ? "Downloaded" : "Downloads"}:
-				${book.download_count === 0 ? "No" : book.download_count}
-			</span>
-			<button class="book__cta">About this book</button>
-		</div>
-	`;
-	return bookDetails;
-}
-
-async function fetchBook(id) {
-	try {
-		const response = await fetch(`https://gutendex.com/books/${id}`);
-		if (!response.ok) {
-			throw new Error("Failed to fetch book");
-		}
-		const result = await response.json();
-		return result;
-	} catch (error) {
-		console.error("Error fetching book:", error);
-		return null;
-	}
-}
-
 // GET AND DISPLAY BOOKS
-
 async function fetchBooks() {
 	try {
 		const response = await fetch("https://gutendex.com/books/");
@@ -158,7 +94,7 @@ function renderBooks(books) {
 							${book.download_count === 1 ? "Downloaded" : "Downloads"}:
 							${book.download_count === 0 ? "No" : book.download_count}
 						</span>
-						<a href="/books/book.html" class="book__cta">Read more</a>
+						<a href="/books/book.html?id=${book.id}" class="book__cta">Read more</a>
 					</div>
 				</div>
     `;
@@ -173,36 +109,3 @@ async function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
-/* const bookList = document.querySelector("#book__list");
-
-async function fetchBooks() {
-	let isLoading = true;
-	const response = await fetch("https://gutendex.com/books/");
-	const result = await response.json();
-	let books = result.results;
-	isLoading = false;
-	return { books, isLoading };
-}
-
-async function renderBooks() {
-	const { books, isLoading } = await fetchBooks();
-
-	if (isLoading) {
-		bookList.innerHTML = "<h1>Loading...</h1>";
-		return;
-	}
-
-	books.forEach((book) => {
-		const bookItem = document.createElement("li");
-		bookItem.innerHTML = `
-      <img src="${book.formats["image/jpeg"]}" alt="${book.title}" />
-      <h3>${book.title}</h3>
-      <p>${book.authors}</p>
-    `;
-		bookList.appendChild(bookItem);
-	});
-}
-
-document.addEventListener("DOMContentLoaded", renderBooks);
- */
