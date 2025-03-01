@@ -1,19 +1,36 @@
 const bookList = document.querySelector("#book__list");
 const search = document.querySelector("#search");
-const book = document.querySelector(".book__details");
+const bookContent = document.querySelector(".book__details");
 
 let books = [];
 
-bookList.addEventListener("click", async (event) => {
-	const bookItem = event.target.closest(".book");
-	if (!bookItem) return;
+// GET BOOK DETAILS
 
-	const bookId = bookItem.id;
+function getBookIdFromUrl() {
+	const urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get("id");
+}
+
+bookList.addEventListener("click", async (event) => {
+	event.preventDefault();
+	const bookBtn = event.target.classList.contains("book__cta")
+		? event.target
+		: event.target.closest
+		? event.target.closest(".book__cta")
+		: null;
+	console.log(bookBtn);
+
+	if (!bookBtn) return;
+
+	let parentEl = bookBtn.closest(".book");
+	const bookId = parentEl.id;
 	const book = await fetchBook(bookId);
 
 	const bookDetails = getBookDetails(book);
-	bookItem.appendChild(bookDetails);
-	bookItem.classList.toggle("active");
+	bookContent.appendChild(bookDetails);
+
+	// Now update the href dynamically
+	bookBtn.href = `/books/book.html?id=${bookId}`;
 });
 
 function getBookDetails(book) {
@@ -49,6 +66,8 @@ async function fetchBook(id) {
 		return null;
 	}
 }
+
+// GET AND DISPLAY BOOKS
 
 async function fetchBooks() {
 	try {
@@ -139,7 +158,7 @@ function renderBooks(books) {
 							${book.download_count === 1 ? "Downloaded" : "Downloads"}:
 							${book.download_count === 0 ? "No" : book.download_count}
 						</span>
-						<a href="/books/book.html" class="book__cta" target="_blank">Read more</a>
+						<a href="/books/book.html" class="book__cta">Read more</a>
 					</div>
 				</div>
     `;
