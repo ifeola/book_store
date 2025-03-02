@@ -99,12 +99,7 @@ label {
 .book__wrapper {
 	max-inline-size: 920px;
 	width: 100%;
-	padding-inline: 1rem;
 	margin-inline: auto;
-}
-
-.book__wrapper {
-	padding-inline: 0;
 }
 
 #book__list {
@@ -116,6 +111,7 @@ label {
 .book__wrapper {
 	display: flex;
 	flex-direction: column;
+	padding-inline: 1rem;
 }
 
 .book__desc {
@@ -363,5 +359,116 @@ label {
 	}
 }
 
-.book-details {
+/* Book Details */
+
+.book__content {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 2rem;
+}
+
+.book__content .book__image {
+	inline-size: 7rem;
+	grid-column: auto;
+}
+
+.book__content .book__title {
+	font-size: 2rem;
+	line-height: 1.1;
+	margin-block-end: 0.5rem;
+}
+
+.book__content .book__author {
+	margin-block-start: 0;
+}
+
+.book__content .book__btn {
+	text-decoration: none;
+	background-color: var(--primary-color);
+	border-radius: 5rem;
+	cursor: pointer;
+	font-size: 0.875rem;
+	color: var(--dark-color);
+	font-weight: 700;
+	padding: 0.875rem 2rem;
+	inline-size: fit-content;
+	align-self: flex-end;
+}
+
+.book__content .book__info {
+	grid-column: 2 / -1;
+	display: grid;
+	gap: 1rem;
+}
+
+.book__content > *:not(:first-child, :nth-child(2)) {
+	grid-column: span 2;
+}
+
+.book__content .book__description {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: rgb(197, 197, 197);
+	padding-block: 1rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.16);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.book__lists {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.25rem;
+}
+
+.subjects,
+.bookshelves {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.subjects h5,
+.bookshelves h5 {
+	font-size: 1rem;
+}
+
+.book__lists ul {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.225rem;
+	list-style: none;
+}
+
+.book__lists li {
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	color: rgb(155, 155, 155);
+	border-radius: 0.25rem;
+	padding: 0.5rem;
+	font-size: 0.625rem;
+	font-weight: 700;
+	width: fit-content;
+}
+
+@media (max-width: 585px) {
+	.book__content {
+		gap: 1rem;
+	}
+
+	.book__content .book__image {
+		inline-size: 5.6rem;
+	}
+
+	.book__content .book__title {
+		font-size: 1.275rem;
+	}
+
+	.book__content .book__btn {
+		width: 100%;
+		text-align: center;
+	}
+
+	.book__lists {
+		grid-template-columns: 1fr;
+	}
 }

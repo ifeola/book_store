@@ -34,21 +34,36 @@ async function fetchBook(id) {
 
 function getBookDetails(book) {
 	return `
-		<div class="book__image">
-			<img src="${
-				book.formats["image/jpeg"] || "https://via.placeholder.com/150"
-			}" alt="${book.title}" />
-		</div>
-		<div class="book__info">
-			<h2 class="book__title">${book.title}</h2>
-			<p class="book__author">By <span>${book.authors[0].name}</span></p>
-			<p class="book__price">${
-				book.price ? `$${book.price}` : "Price not available"
-			}</p>
-			<p class="book__rating">${
-				book.rating ? `${book.rating} stars` : "Rating not available"
-			}</p>
+		<div class="book__content">
+			<div class="book__image">
+				<img src="${
+					book.formats["image/jpeg"] || "https://via.placeholder.com/150"
+				}" alt="${book.title}" />
+			</div>
+			<div class="book__info">
+				<div class="top__info">
+					<h2 class="book__title">${book.title}</h2>
+					<p class="book__author">By <span>${book.authors[0].name}</span></p>
+				</div>
+				<a href="${book.formats["text/html"]}" class="book__btn">Read Book</a>
+			</div>
 			<p class="book__description">${book.summaries[0]}</p>
+			<div class="book__lists">
+				<div class="subjects">
+					<h5>Subjects -</h5>
+					<ul class="subject__list">
+						${book.subjects.map((subject) => `<li>${subject}</li>`).join("")}
+					</ul>
+				</div>
+				<div class="bookshelves">
+					<h5>Bookshelves -</h5>
+					<ul class="bookshelve__list">
+						${book.bookshelves
+							.map((bookshelve) => `<li><p>${bookshelve}</p></li>`)
+							.join("")}
+					</ul>
+				</div>
+			</div>
 		</div>
 	`;
 }
