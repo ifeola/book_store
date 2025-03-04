@@ -39,10 +39,10 @@ body {
 	left: 0;
 	inline-size: 100%;
 	block-size: 4rem;
-	border-block-end: 1px solid rgba(255, 255, 255, 0.16);
 	justify-content: center;
 	background-color: var(--dark-color);
 	z-index: 100;
+	border-block-end: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .header__wrapper {
@@ -56,6 +56,10 @@ body {
 .logo {
 	font-size: 1.5rem;
 	font-weight: 700;
+}
+
+.title-heading {
+	font-size: 2.4rem;
 }
 
 img {
@@ -102,6 +106,10 @@ label {
 	margin-inline: auto;
 }
 
+.booklist__wrapper {
+	padding-inline: 1rem;
+}
+
 #book__list {
 	--min-width-size: 400px;
 	display: grid;
@@ -111,7 +119,6 @@ label {
 .book__wrapper {
 	display: flex;
 	flex-direction: column;
-	padding-inline: 1rem;
 }
 
 .book__desc {
@@ -450,7 +457,23 @@ label {
 	width: fit-content;
 }
 
+.search-mobile {
+	display: none;
+}
+
+#booklist__form {
+	display: block;
+}
+
 @media (max-width: 585px) {
+	.title-heading {
+		font-size: 1.75rem;
+	}
+
+	.main {
+		padding-block: 8.8rem;
+	}
+
 	.book__content {
 		gap: 1rem;
 	}
@@ -470,5 +493,46 @@ label {
 
 	.book__lists {
 		grid-template-columns: 1fr;
+	}
+
+	#booklist__form {
+		position: absolute;
+		inline-size: 100%;
+		left: 0;
+		top: 4rem;
+		background-color: var(--dark-color);
+		border-bottom: 1px solid transparent;
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: 0.3s ease-in;
+	}
+
+	#booklist__form.active {
+		border-color: rgba(255, 255, 255, 0.16);
+		grid-template-rows: 1fr;
+	}
+
+	#booklist__form div {
+		overflow: hidden;
+	}
+
+	#booklist__form div div {
+		padding: 0.5rem 1rem;
+	}
+
+	.search-mobile {
+		display: block;
+	}
+
+	.search__btn {
+		background-color: rgba(179, 179, 179, 0.753);
+		border-radius: 4px;
+		cursor: pointer;
+		padding: 0.5rem;
+		border: none;
+		outline: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
