@@ -2,7 +2,7 @@ const bookList = document.querySelector("#book__list");
 const search = document.querySelector("#search");
 const bookContent = document.querySelector("#book-details");
 const searchBtn = document.querySelector(".search__btn");
-const form = document.querySelector("#booklist__form");
+const form = document.querySelector("#mobile-form");
 const main = document.querySelector(".main");
 
 let books = [];
