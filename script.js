@@ -4,9 +4,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const bookId = params.get("id");
 	if (bookId) {
 		const book = await fetchBook(bookId);
-		if (book) {
+		const suggestedBooks = await fetchBooks(book);
+		if (book && suggestedBooks) {
 			const bookDetails = getBookDetails(book);
 			document.querySelector("#book-details").innerHTML = bookDetails;
+
+			// Display suggested books
+			const suggestedBooksList = document.querySelector(
+				".suggested__books-list"
+			);
+			suggestedBooksList.innerHTML = "";
+			suggestedBooks.splice(0, 4).map((item) => {
+				if (item.id !== book.id) {
+					const bookItem = document.createElement("li");
+					bookItem.classList.add("suggested__book");
+					bookItem.innerHTML = `
+					<a href="book.html?id=${item.id}">
+						<div class="book__image">
+							<img src="${
+								item.formats["image/jpeg"] || "https://via.placeholder.com/150"
+							}" alt="${item.title}" />
+						</div>
+						<div class="book__info">
+							<h4 class="book__title">${item.title}</h4>
+							<p class="book__author">By <span>${item.authors[0].name}</span></p>
+						</div>
+					</a>
+				`;
+					suggestedBooksList.appendChild(bookItem);
+				}
+			});
 		} else {
 			document.querySelector("#book-details").innerHTML =
 				"<h1>Book not found.</h1>";
@@ -24,7 +51,6 @@ async function fetchBook(id) {
 			throw new Error("Failed to fetch book");
 		}
 		const result = await response.json();
-		console.log(result);
 		return result;
 	} catch (error) {
 		console.error("Error fetching book:", error);
