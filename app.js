@@ -1,5 +1,6 @@
 const bookList = document.querySelector("#book__list");
-const search = document.querySelector("#search");
+const searchMobile = document.querySelector("#mobile-form #search");
+const searchDesktop = document.querySelector("#desktop-form #search");
 const bookContent = document.querySelector("#book-details");
 const searchBtn = document.querySelector(".search__btn");
 const form = document.querySelector("#mobile-form");
@@ -40,7 +41,8 @@ function findBook() {
 	renderBooks(filteredBooks);
 }
 
-search.addEventListener("keyup", findBook);
+searchDesktop.addEventListener("keyup", findBook);
+searchMobile.addEventListener("keyup", findBook);
 
 function renderLoading() {
 	// Create 8 loading placeholders
