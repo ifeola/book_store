@@ -1,10 +1,13 @@
 const bookList = document.querySelector("#book__list");
-const searchMobile = document.querySelector("#mobile-form #search");
-const searchDesktop = document.querySelector("#desktop-form #search");
+const searchMobile = document.querySelector("#mobile-form .search");
+const searchDesktop = document.querySelector("#desktop-form .search");
 const bookContent = document.querySelector("#book-details");
 const searchBtn = document.querySelector(".search__btn");
 const form = document.querySelector("#mobile-form");
 const main = document.querySelector(".main");
+
+console.log(searchMobile);
+console.log(searchDesktop);
 
 let books = [];
 
@@ -32,7 +35,11 @@ async function fetchBooks() {
 
 function findBook() {
 	// Filter books based on the search input
-	searchInput = search.value;
+	searchInput = searchMobile.value
+		? searchMobile.value
+		: searchDesktop.value
+		? searchDesktop.value
+		: "";
 	const filteredBooks = books.filter(
 		(book) =>
 			book.title.toLowerCase().includes(searchInput.toLowerCase()) ||

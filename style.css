@@ -511,6 +511,27 @@ label {
 	color: var(--tertiary-color);
 }
 
+/* Next and Previous Buttons */
+.prev-next-btns {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-block-start: 1.5rem;
+}
+
+.btn {
+	outline: none;
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	background-color: var(--dark-color);
+	color: var(--secondary-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+}
+
 /* 
 	Mobile View 
 */
