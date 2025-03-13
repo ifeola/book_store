@@ -6,9 +6,6 @@ const searchBtn = document.querySelector(".search__btn");
 const form = document.querySelector("#mobile-form");
 const main = document.querySelector(".main");
 
-console.log(searchMobile);
-console.log(searchDesktop);
-
 let books = [];
 
 // seacrhBtn
@@ -152,5 +149,13 @@ async function init() {
 	books = await fetchBooks(); // Fetch books
 	renderBooks(books); // Render books
 }
+
+// Next button
+const next = document.querySelector(".next");
+
+next.addEventListener("click", () => {
+	const URL = books.next;
+	console.log(books);
+});
 
 document.addEventListener("DOMContentLoaded", init);
