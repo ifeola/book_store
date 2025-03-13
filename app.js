@@ -7,6 +7,7 @@ const form = document.querySelector("#mobile-form");
 const main = document.querySelector(".main");
 
 let books = [];
+const URL = "https://gutendex.com/books/";
 
 // seacrhBtn
 searchBtn.addEventListener("click", () => {
@@ -14,14 +15,14 @@ searchBtn.addEventListener("click", () => {
 });
 
 // GET AND DISPLAY BOOKS
-async function fetchBooks() {
+async function fetchBooks(URL) {
 	try {
-		const response = await fetch("https://gutendex.com/books/");
+		const response = await fetch(URL);
 		if (!response.ok) {
 			throw new Error("Failed to fetch books");
 		}
 		const result = await response.json();
-		return result.results; // Return only the books array
+		return result; // Return only the books array
 	} catch (error) {
 		console.error("Error fetching books:", error);
 		bookList.innerHTML =
@@ -37,7 +38,7 @@ function findBook() {
 		: searchDesktop.value
 		? searchDesktop.value
 		: "";
-	const filteredBooks = books.filter(
+	const filteredBooks = books.results.filter(
 		(book) =>
 			book.title.toLowerCase().includes(searchInput.toLowerCase()) ||
 			book.authors[0].name.toLowerCase().includes(searchInput.toLowerCase())
@@ -49,6 +50,7 @@ searchDesktop.addEventListener("keyup", findBook);
 searchMobile.addEventListener("keyup", findBook);
 
 function renderLoading() {
+	bookList.innerHTML = "";
 	// Create 8 loading placeholders
 	for (let i = 0; i < 8; i++) {
 		const bookItem = document.createElement("li");
@@ -146,16 +148,40 @@ function renderBooks(books) {
 
 async function init() {
 	renderLoading(); // Show loading state
-	books = await fetchBooks(); // Fetch books
-	renderBooks(books); // Render books
+	books = await fetchBooks(URL); // Fetch books
+	renderBooks(books.results); // Render books
 }
 
 // Next button
 const next = document.querySelector(".next");
+const previous = document.querySelector(".previous");
 
-next.addEventListener("click", () => {
+next.addEventListener("click", async () => {
+	renderLoading();
 	const URL = books.next;
-	console.log(books);
+	const nextPage = await fetchBooks(URL);
+	books = nextPage;
+	const nextURL = books.next;
+
+	if (!nextURL) {
+		next.disabled = true;
+	}
+	previous.disabled = false;
+	renderBooks(books.results);
+});
+
+previous.addEventListener("click", async () => {
+	renderLoading();
+	const URL = books.previous;
+	const previousPage = await fetchBooks(URL);
+	books = previousPage;
+	const previousURL = books.previous;
+
+	if (!previousURL) {
+		previous.disabled = true;
+	}
+	next.disabled = false;
+	renderBooks(books.results);
 });
 
 document.addEventListener("DOMContentLoaded", init);

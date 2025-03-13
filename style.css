@@ -530,6 +530,16 @@ label {
 	gap: 0.5rem;
 	padding: 0.5rem 1rem;
 	cursor: pointer;
+
+	svg,
+	span {
+		pointer-events: none;
+	}
+}
+
+.btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 /* 
