@@ -2,9 +2,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
 	const params = new URLSearchParams(window.location.search);
 	const bookId = params.get("id");
+	console.log(bookId);
+
 	if (bookId) {
 		const book = await fetchBook(bookId);
-		const suggestedBooks = await fetchBooks(book);
+		let suggestedBooks = await fetchBooks(URL);
+		suggestedBooks = suggestedBooks.results;
+
 		if (book && suggestedBooks) {
 			const bookDetails = getBookDetails(book);
 			document.querySelector("#book-details").innerHTML = bookDetails;
